@@ -58,6 +58,11 @@ setInterval(() => {
     return;
   }
 
+  if (!skipIntroBtn && nextEpisodeBtn && !isNextEpisodeBtnHidden) {
+    nextEpisodeBtn?.click();
+    return;
+  }
+
   isSkipIntroBtnHidden
     ? nextEpisodeBtn?.click()
     : skipIntroBtn?.click();
