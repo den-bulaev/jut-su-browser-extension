@@ -7,6 +7,10 @@ const VIDEO_WRAPPER = ".video-js.vjs-default-skin";
 const ELEMENT_TO_HIDE_1_SELECTOR = ".info_panel.clear";
 const ELEMENT_TO_HIDE_2_SELECTOR = ".header.z_fix_header";
 
+const body = document.querySelector("body");
+const elementToHide1 = document.querySelector(ELEMENT_TO_HIDE_1_SELECTOR);
+const elementToHide2 = document.querySelector(ELEMENT_TO_HIDE_2_SELECTOR);
+
 let isRunning = true;
 
 function extensionLoop() {
@@ -16,10 +20,7 @@ function extensionLoop() {
     const nextEpisodeBtn = document.querySelector(
       GO_TO_NEXT_EPISODE_BTN_SELECTOR
     );
-    const body = document.querySelector("body");
     const videoWrapper = document.querySelector(VIDEO_WRAPPER);
-    const elementToHide1 = document.querySelector(ELEMENT_TO_HIDE_1_SELECTOR);
-    const elementToHide2 = document.querySelector(ELEMENT_TO_HIDE_2_SELECTOR);
 
     if (isRunning) {
       if (body) {
