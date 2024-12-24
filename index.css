@@ -1,0 +1,81 @@
+body {
+  width: 150px;
+  height: 200px;
+  padding: 0;
+  margin: 0;
+}
+
+.image {
+  height: 60%;
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: rgb(255, 249, 132);
+}
+
+.title {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.website-name {
+  font-size: large;
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.on-off-switch-label {
+  display: block;
+  width: 50px;
+  height: 15.5px;
+  background-color: green;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0 0 10px #477a8550;
+}
+
+.on-off-switch-label__off {
+  background-color: red;
+}
+
+.on-off-switch-label::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #f7e8e8;
+  position: absolute;
+  border-radius: 7px;
+  top: 1.5px;
+  left: 1.5px;
+  transition: 0.5s;
+}
+
+input[type="checkbox"]:checked + .on-off-switch-label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.on-off-switch-label:active:after {
+  width: 16px;
+}
