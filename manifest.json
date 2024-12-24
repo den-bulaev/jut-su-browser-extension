@@ -1,7 +1,7 @@
 {
   "name": "AutoNext",
   "version": "1.0.0",
-  "description": "This will click a skip btn for you",
+  "description": "It will automatically play next episode for you",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
