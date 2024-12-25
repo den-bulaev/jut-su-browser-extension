@@ -4,7 +4,7 @@ const label = document.querySelector(".on-off-switch-label");
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const currentTabId = tabs[0]?.id;
 
-  if (tabs[0].url.includes("https://jut.su/")) {
+  if (tabs[0].url.match(/https:\/\/jut.su\/.*episode.*/)) {
     // Fetch current state
     chrome.runtime.sendMessage({ action: "getState" }, (response) => {
       if (

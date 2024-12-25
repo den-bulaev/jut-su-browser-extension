@@ -12,15 +12,25 @@ const elementToHide1 = document.querySelector(ELEMENT_TO_HIDE_1_SELECTOR);
 const elementToHide2 = document.querySelector(ELEMENT_TO_HIDE_2_SELECTOR);
 
 let isRunning = true;
+let timer;
 
 function extensionLoop() {
-  setTimeout(function () {
+  if (timer) {
+    clearTimeout(timer);
+  }
+
+  timer = setTimeout(function () {
     const playBtn = document.querySelector(PLAY_BTN_SELECTOR);
     const skipIntroBtn = document.querySelector(SKIP_INTRO_BTN_SELECTOR);
     const nextEpisodeBtn = document.querySelector(
       GO_TO_NEXT_EPISODE_BTN_SELECTOR
     );
     const videoWrapper = document.querySelector(VIDEO_WRAPPER);
+
+    if (videoWrapper.classList.contains("vjs-paused") && !playBtn) {
+      extensionLoop();
+      return;
+    }
 
     if (isRunning) {
       if (body) {
@@ -51,6 +61,7 @@ function extensionLoop() {
       }
 
       if (!skipIntroBtn && !nextEpisodeBtn) {
+        extensionLoop();
         return;
       }
 
@@ -60,11 +71,13 @@ function extensionLoop() {
         !!nextEpisodeBtn?.classList.contains("vjs-hidden");
 
       if (isSkipIntroBtnHidden && isNextEpisodeBtnHidden) {
+        extensionLoop();
         return;
       }
 
       if (!skipIntroBtn && nextEpisodeBtn && !isNextEpisodeBtnHidden) {
         nextEpisodeBtn?.click();
+        extensionLoop();
         return;
       }
 
