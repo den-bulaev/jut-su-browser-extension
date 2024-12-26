@@ -6,10 +6,12 @@ const PLAY_BTN_SELECTOR = ".vjs-big-play-button";
 const VIDEO_WRAPPER = ".video-js.vjs-default-skin";
 const ELEMENT_TO_HIDE_1_SELECTOR = ".info_panel.clear";
 const ELEMENT_TO_HIDE_2_SELECTOR = ".header.z_fix_header";
+const ELEMENT_TO_HIDE_3_SELECTOR = ".footer.wrapper";
 
 const body = document.querySelector("body");
 const elementToHide1 = document.querySelector(ELEMENT_TO_HIDE_1_SELECTOR);
 const elementToHide2 = document.querySelector(ELEMENT_TO_HIDE_2_SELECTOR);
+const elementToHide3 = document.querySelector(ELEMENT_TO_HIDE_3_SELECTOR);
 
 let isRunning = true;
 let timer;
@@ -45,11 +47,15 @@ function extensionLoop() {
       }
 
       if (elementToHide1) {
-        elementToHide1.style.display = "none";
+        elementToHide1.style.opacity = "0";
       }
 
       if (elementToHide2) {
-        elementToHide2.style.display = "none";
+        elementToHide2.style.opacity = "0";
+      }
+
+      if (elementToHide3) {
+        elementToHide3.style.opacity = "0";
       }
 
       if (videoWrapper) {
@@ -90,11 +96,15 @@ function extensionLoop() {
       }
 
       if (elementToHide1) {
-        elementToHide1.style.display = "block";
+        elementToHide1.style.opacity = "1";
       }
 
       if (elementToHide2) {
-        elementToHide2.style.display = "block";
+        elementToHide2.style.opacity = "1";
+      }
+
+      if (elementToHide3) {
+        elementToHide3.style.opacity = "1";
       }
 
       if (videoWrapper) {
