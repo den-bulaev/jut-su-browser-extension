@@ -35,22 +35,14 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             action: "saveState",
             state: { toggled: isChecked, tabId: currentTabId },
           },
-          (response) => {
-            console.log("State toggled for tab:", response);
-          }
+          (response) => {}
         );
 
         if (currentTabId) {
           chrome.tabs.sendMessage(
             currentTabId,
             { action: isChecked ? "stopExtension" : "runExtension" },
-            (response) => {
-              if (response) {
-                console.log("Response from content script:", response);
-              } else {
-                console.log("No response from content", response);
-              }
-            }
+            (response) => {}
           );
         }
       });
