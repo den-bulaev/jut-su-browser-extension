@@ -1,58 +1,98 @@
-const toggleStateButton = document.getElementById("on-off-switch");
-const label = document.querySelector(".on-off-switch-label");
+import { BackgroundActions } from "./constants.js";
+
+const togglers = document.querySelectorAll(".toggle");
+
+const updateToggle = (toggle, isChecked) => {
+  const toggleName = toggle?.name;
+
+  toggle.checked = isChecked;
+
+  if (toggleName) {
+    const toggleLabel = document.querySelector(`label[for="${toggleName}"]`);
+
+    if (toggleLabel) {
+      if (isChecked) {
+        toggleLabel.classList.add("toggle__off");
+        toggleLabel.textContent = "Off";
+      } else {
+        toggleLabel.classList.remove("toggle__off");
+        toggleLabel.textContent = "On";
+      }
+    }
+  }
+};
 
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const currentTabId = tabs[0]?.id;
 
-  if (tabs[0].url.match(/https:\/\/jut.su\/.*episode.*/)) {
+  if (tabs[0].url.match(/https:\/\/jut.su\/.*episode.*/) && togglers.length) {
     // Fetch current state
-    chrome.runtime.sendMessage({ action: "getState" }, (response) => {
-      if (
-        response?.tabStates[currentTabId]?.tabId === currentTabId &&
-        response?.tabStates[currentTabId]?.toggled
-      ) {
-        if (label) {
-          label.style.backgroundColor = "red";
-        }
-
-        if (toggleStateButton) {
-          toggleStateButton.checked = true;
-        }
+    chrome.runtime.sendMessage(
+      { action: BackgroundActions.getState, state: { tabId: currentTabId } },
+      (response) => {
+        togglers.forEach((toggle) => {
+          if (
+            response?.state[currentTabId] &&
+            toggle.name in response.state[currentTabId]
+          ) {
+            updateToggle(
+              toggle,
+              response.state[currentTabId][toggle.name].toggled
+            );
+          }
+        });
       }
-    });
+    );
 
     // Toggle state
-    if (toggleStateButton) {
-      toggleStateButton.addEventListener("change", (e) => {
-        const isChecked = e.target.checked;
+    togglers.forEach((toggle) => {
+      const toggleName = toggle?.name;
 
-        if (label) {
-          label.style.backgroundColor = isChecked ? "red" : "green";
-        }
+      if (toggleName) {
+        toggle.addEventListener("change", (e) => {
+          const isChecked = e.target.checked;
 
-        chrome.runtime.sendMessage(
-          {
-            action: "saveState",
-            state: { toggled: isChecked, tabId: currentTabId },
-          },
-          (response) => {}
-        );
+          updateToggle(toggle, isChecked);
 
-        if (currentTabId) {
-          chrome.tabs.sendMessage(
-            currentTabId,
-            { action: isChecked ? "stopExtension" : "runExtension" },
+          chrome.runtime.sendMessage(
+            {
+              action: BackgroundActions.saveState,
+              state: {
+                tabId: currentTabId,
+                [toggleName]: {
+                  toggled: isChecked,
+                },
+              },
+            },
             (response) => {}
           );
-        }
-      });
-    }
-  } else {
-    const toggleWrapper = document.querySelector(".toggle-wrapper");
 
-    if (toggleWrapper) {
-      toggleWrapper.style.transitionDuration = "1000ms";
-      toggleWrapper.style.transform = "translate(110%)";
+          switch (toggleName) {
+            case "skip-switch": {
+              chrome.tabs.sendMessage(
+                currentTabId,
+                { action: isChecked ? "stopNext" : "runNext" },
+                (response) => {}
+              );
+              break;
+            }
+
+            default: {
+              chrome.tabs.sendMessage(
+                currentTabId,
+                { action: isChecked ? "resetFullscreen" : "getFullscreen" },
+                (response) => {}
+              );
+            }
+          }
+        });
+      }
+    });
+  } else {
+    const unavailableBlock = document.querySelector(".unavailable-block");
+
+    if (unavailableBlock) {
+      unavailableBlock.style.display = "block";
     }
   }
 });

@@ -8,8 +8,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   padding: 5px;
   background-color: rgb(255, 249, 132);
+}
+
+.unavailable-block {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+  background-color: black;
 }
 
 .title {
@@ -24,8 +36,18 @@ body {
 }
 
 .website-name {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.toggle-name {
   font-size: large;
   font-weight: bold;
+  text-align: center;
 }
 
 input[type="checkbox"] {
@@ -36,18 +58,22 @@ input[type="checkbox"] {
 
 .on-off-switch-label {
   display: block;
-  width: 50px;
+  width: 40px;
   height: 15.5px;
-  background-color: green;
-  border-radius: 10px;
   position: relative;
-  cursor: pointer;
   transition: 0.5s;
+  padding: 0 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: right;
+  color: white;
+  background-color: green;
   box-shadow: 0 0 10px #477a8550;
 }
 
-.on-off-switch-label__off {
+.toggle__off {
   background-color: red;
+  text-align: left;
 }
 
 .on-off-switch-label::after {
@@ -69,4 +95,20 @@ input[type="checkbox"]:checked + .on-off-switch-label:after {
 
 .on-off-switch-label:active:after {
   width: 16px;
+}
+
+.grey {
+  color: #929292;
+}
+
+.blue {
+  color: #7BA8BB;
+}
+
+.dark-red {
+  color: #821038;
+}
+
+.green {
+  color: #A8B677;
 }

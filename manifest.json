@@ -1,6 +1,6 @@
 {
   "name": "AutoNext Jut.su",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "It will automatically play next episode for you and skip intro",
   "icons": {
     "16": "icon16.png",
@@ -8,10 +8,10 @@
     "128": "icon128.png"
   },
   "manifest_version": 3,
-  "author": "DenisBulaev",
+  "author": "Den",
   "permissions": [
-    "tabs",
-    "webNavigation"
+    "activeTab",
+    "storage"
   ],
   "host_permissions": [
     "https://jut.su/*episode*"
@@ -27,6 +27,7 @@
     "run_at": "document_idle"
   }],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   }
 }
