@@ -5,18 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
     <title>AutoNext</title>
-    <script src="popup.js" defer></script>
+    <script src="popup.js" type="module"></script>
   </head>
 
   <body>
     <div class="actions">
       <h1 class="title">AutoNext</h1>
 
-      <div class="toggle-wrapper">
-        <span class="website-name">Jut.su:</span>
-        <input type="checkbox" name="switch" id="on-off-switch" />
-        <label for="on-off-switch" class="on-off-switch-label"></label>
+      <div class="website-name">
+        <span class="gery">J</span>
+        <span class="blue">U</span>
+        <span class="green">T</span>
+        <span class="grey">.</span>
+        <span class="dark-red">su</span>
       </div>
+
+      <div class="toggle-wrapper skip">
+        <span class="toggle-name">Skip:</span>
+        <input
+          type="checkbox"
+          name="skip-switch"
+          id="skip-switch"
+          class="toggle"
+        />
+        <label for="skip-switch" class="on-off-switch-label">On</label>
+      </div>
+
+      <div class="toggle-wrapper fullscreen">
+        <span class="toggle-name">Resize:</span>
+        <input
+          type="checkbox"
+          name="fullscreen-switch"
+          id="fullscreen-switch"
+          class="toggle"
+        />
+        <label for="fullscreen-switch" class="on-off-switch-label">On</label>
+      </div>
+
+      <div class="unavailable-block"></div>
     </div>
   </body>
 </html>

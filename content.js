@@ -92,7 +92,7 @@ const getFullscreen = (isRevert) => {
 
 waitForElm(PLAY_BTN_SELECTOR).then((element) => {
   if (element && isRunning) {
-    timer = setTimeout(() => {
+    setTimeout(() => {
       getFullscreen();
       element.click();
     }, 1000);
@@ -108,16 +108,29 @@ waitForElm(GO_TO_NEXT_EPISODE_BTN_SELECTOR).then((element) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "stopExtension") {
-    isRunning = false;
-    getFullscreen(true);
-    sendResponse({ success: true });
-  }
+  switch (message.action) {
+    case "stopNext": {
+      isRunning = false;
+      sendResponse({ success: true });
+      break;
+    }
 
-  if (message.action === "runExtension") {
-    isRunning = true;
-    sendResponse({ success: true });
-    getFullscreen();
+    case "runNext": {
+      isRunning = true;
+      sendResponse({ success: true });
+      break;
+    }
+
+    case "getFullscreen": {
+      getFullscreen();
+      sendResponse({ success: true });
+      break;
+    }
+
+    default: {
+      getFullscreen(true);
+      sendResponse({ success: true });
+    }
   }
 
   return true;
