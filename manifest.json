@@ -1,13 +1,14 @@
 {
-  "name": "AutoNext Jut.su",
-  "version": "1.0.1",
-  "description": "It will automatically play next episode for you and skip intro",
+  "name": "__MSG_appName__",
+  "version": "1.0.2",
+  "description": "__MSG_appDescription__",
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
   "manifest_version": 3,
+  "default_locale": "en",
   "author": "Den",
   "permissions": [
     "activeTab",
@@ -18,7 +19,7 @@
   ],
   "action": {
     "default_popup": "index.html",
-    "default_title": "AutoNext Jut.su",
+    "default_title": "__MSG_appName__",
     "default_icon": "icon48.png"
   },
   "content_scripts": [{
